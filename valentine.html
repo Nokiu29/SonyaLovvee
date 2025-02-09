@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>С Днём Святого Валентина!</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+        }
+
+        .heart {
+            font-size: 5rem;
+            line-height: 1;
+            color: #ff0000;
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+            margin: 20px auto;
+            cursor: pointer;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        .message {
+            color: white;
+            font-size: 1.8em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin: 10px;
+        }
+
+        .sub-message {
+            color: white;
+            font-size: 1em;
+            margin-top: 10px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+        }
+
+        /* Эффект для мини-сердечек */
+        @keyframes miniHeartFloat {
+            0% {
+                transform: translate(0, 0) rotate(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) rotate(var(--rot));
+                opacity: 0;
+            }
+        }
+
+        /* Для анимации парящих сердечек */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 2rem;
+            color: #9c2828;
+            animation: floatUp linear forwards;
+        }
+
+        @keyframes floatUp {
+            from {
+                transform: translateY(100vh);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(-10vh);
+                opacity: 0;
+            }
+        }
+
+        /* Эффект сияния и блёсток */
+        .glow {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 70%);
+            pointer-events: none;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.8);
+            pointer-events: none;
+            animation: sparkleFade 1.5s linear;
+        }
+
+        @keyframes sparkleFade {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(2); }
+        }
+
+        .music-note {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: musicNoteFloat 3s linear;
+        }
+
+        @keyframes musicNoteFloat {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-200px); opacity: 0; }
+        }
+
+        .butterfly {
+            position: absolute;
+            font-size: 2rem;
+            animation: butterflyFloat 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="floating-hearts"></div>
+        <div class="heart">❤️</div>
+        <div class="message">С Днём Святого Валентина!</div>
+        <div class="sub-message">Ты - самое прекрасное, что есть в моей жизни ❤️</div>
+    </div>
+    <script>
+        function createFloatingHearts() {
+            const container = document.querySelector('.floating-hearts');
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤';
+            heart.className = 'floating-heart';
+            
+            const startPos = Math.random() * 100;
+            heart.style.left = startPos + 'vw';
+            
+            const duration = 6 + Math.random() * 4;
+            heart.style.animationDuration = duration + 's';
+            
+            container.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, duration * 1000);
+        }
+
+  
+
+
+
+        const mainHeart = document.querySelector('.heart');
+        mainHeart.addEventListener('click', () => {
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    createSparkle(
+                        mainHeart.offsetLeft + mainHeart.offsetWidth/2 + (Math.random() - 0.5) * 150,
+                        mainHeart.offsetTop + mainHeart.offsetHeight/2 + (Math.random() - 0.5) * 150
+                    );
+                }, i * 50);
+            }
+        });
+
+        setInterval(createFloatingHearts, 300);
+      
+    </script>
+</body>
+</html>
